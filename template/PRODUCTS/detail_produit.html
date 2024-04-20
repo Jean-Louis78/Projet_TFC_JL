@@ -1,0 +1,267 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="{% static 'css/styles.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/js/bootstrap.js' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/js/bootstrap.min.js' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/img/favicon/favicon.ico' %}" />
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="{% static 'assets/vendor/fonts/boxicons.css' %}" />
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="{% static 'assets/vendor/css/core.css' %}" class="template-customizer-core-css" />
+  <link rel="stylesheet" href="{% static 'assets/vendor/css/theme-default.css' %}"
+    class="template-customizer-theme-css" />
+  <link rel="stylesheet" href="{% static 'assets/css/demo.css' %}" />
+
+  <!-- Vendors CSS -->
+  <link rel="stylesheet" href="{% static 'assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/vendor/libs/apex-charts/apex-charts.css' %}" />
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <title>Ma Boutique</title>
+</head>
+<body>
+  <nav
+      class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+      id="layout-navbar">
+      <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
+        
+        
+        {% if user.is_authenticated %}
+        <div class="d-flex " style="margin-right: 5px;">
+          <div class="nav-item align-items-center" style="margin-left: 5px;">
+          <a class="nav-link nav-icon" href="{% url 'cart' %}">
+            <div class="d-flex">
+              <div class="form-control btn-outline-info">
+                <i class="bx bx-shopping-bag d-flex btn-md" style="font-size: 2rem;">
+                  <span class="badge bg-success-alt rounded-circle" style="font-size: 10px; margin-top: 1rem">
+                    {{ request.session.cart_data_obj|length }}
+                  </span>
+                </i>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="d-flex " style="margin-right: 5px;">
+        <div class="nav-item align-items-center" style="margin-left: 5px;">
+        <a class="nav-link nav-icon" href="{% url 'index' %}">
+          <div class="d-flex">
+            <div class="form-control btn-outline-info">
+              <i class="bx bx-home-alt d-flex btn-md" style="font-size: 2rem;"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+          <ul class="navbar-nav flex-row align-items-center ms-auto">
+          <li class="nav-item navbar-dropdown dropdown-user dropdown">
+            <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
+              <div class="avatar avatar-online">
+                
+                {% if user.photo %}
+                  <img src="{{ user.photo.url }}" alt class="w-px-40 h-px-40 rounded-circle" />
+                {% else %}
+                <img src="{% static 'assets/img/avatars/1.png' %}" alt class="w-px-40 h-px-40 rounded-circle" />
+                {% endif %}
+                  
+                
+              </div>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'user-profile' user.id %}">
+                  <div class="d-flex">
+                    <div class="flex-shrink-0 me-3">
+                      <div class="avatar avatar-online">
+                        {% if user.photo %}
+                          <img src="{{ user.photo.url }}" alt class="w-px-40 h-px-40 rounded-circle" />
+                        {% else %}
+                        <img src="{% static 'assets/img/avatars/1.png' %}" alt class="w-px-40 h-px-40 rounded-circle" />
+                        {% endif %}
+                      </div>
+                    </div>
+                    <div class="flex-grow-1">
+                      
+                      {% if user.first_name and user.last_name %}
+                      <span class="fw-medium d-block">{{ user.first_name }} {{ user.last_name }}</span>
+                      {% else %}
+                      <span class="fw-medium d-block">{{ user.username }}</span>
+                      {% endif %}
+                        
+                      
+                      
+                      {% if user.is_superuser == 1 %}
+                       <small class="text-muted">Admin</small>
+                      {% else %}
+                      <small class="text-muted">Custommer</small>
+                      {% endif %}
+                        
+                      
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li>
+                <div class="dropdown-divider"></div>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'user-profile' user.id %}">
+                  <i class="bx bx-user me-2"></i>
+                  <span class="align-middle">Mon Profil</span>
+                </a>
+              </li>
+              
+              {% if user.is_superuser == 1 %}
+                <li>
+                <a class="dropdown-item" href="{% url 'administration' %}">
+                  <i class="flex-shrink-0 bx bx-building-house me-2"></i>
+                  <span>Administration</span>
+                  <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">
+                    {{commandes}}
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'cart' %}">
+                  <i class="flex-shrink-0 bx bx-shopping-bag me-2"></i>
+                  <span>Pannier  </span>
+                  <span class="flex-shrink-0 badge badge-center rounded-pill text-bg-info w-px-20 h-px-20">
+                    {{ request.session.cart_data_obj|length }}
+                  </span>
+                </a>
+              </li>
+              {% else %}
+              <li>
+                <a class="dropdown-item" href="{% url 'cart' %}">
+                  <i class="flex-shrink-0 bx bx-shopping-bag me-2"></i>
+                  <span>Pannier  </span>
+                  <span class="flex-shrink-0 badge badge-center rounded-pill text-bg-info w-px-20 h-px-20">
+                    {{ request.session.cart_data_obj|length }}
+                  </span>
+                </a>
+              </li>
+              {% endif %}
+
+              <li>
+                <div class="dropdown-divider"></div>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'logout' %}">
+                  <i class="bx bx-power-off me-2"></i>
+                  <span class="align-middle">Log Out</span>
+                </a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        {% endif %}
+          
+          
+        
+        
+        {% if not user.is_authenticated %} 
+        <div class="navbar-nav flex-row align-items-center ms-auto" style="margin-right: 5px;">
+          <div class="nav-item align-items-center" style="margin-left: 5px;">
+          <a class="nav-link nav-icon" href="{% url 'login' %}">
+            <div class="d-flex">
+              <div class="form-control btn-outline-info">
+                <i class="bx bx-log-in d-flex btn-md" style="font-size: 2rem;"></i>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      
+        <div class="nav-item align-items-center" style="margin-left: 5px;">
+        <a class="nav-link nav-icon" href="{% url 'signup' %}">
+          <div class="d-flex">
+            <div class="form-control btn-outline-info">
+              <i class="bx bx-edit d-flex btn-md" style="font-size: 2rem;"></i>
+            </div>
+          </div>
+        </a>
+      </div>
+         {% endif %}
+    </nav>
+<section>
+   
+    <div class="album py-5 bg-light">
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-sm-12 col-lg-6">
+                    <img src="{{ produit.image.url }}" class="w-60 text-center" alt="">
+                </div>
+                <div class="col-md-6 col-lg-6 col-sm-12">
+                  <div id="" class="text-info display-3">{{ produit.designation }}</div>
+                  <div class="">{{ produit.description }}</div>
+                  <div style="font-size: 2rem;" class="text-info" ><span class="current-product-price-{{ produit.id_prod }}">{{ produit.prix_unitaire }}</span><span>$</span></div>
+                    <input type="hidden" name="" class="product-image-{{ produit.id_prod }}" value="{{ produit.image.url }}" >
+                    <input type="hidden" name="" class="product-pid-{{ produit.id_prod }}" value="{{ produit.slug }}">
+                    <input type="hidden" name="" class="product-id-{{ produit.id_prod }}" value="{{ produit.id_prod }}">
+                    <input type="hidden" name="" class="product-title-{{ produit.id_prod }}" value="{{ produit.designation }}">
+                    <br>
+                    {% if user.is_authenticated %}
+                    <div class="d-flex text-center">
+                        <input type="number" value="1" id="product-quantity-{{ produit.id_prod }}" class="bx bx-coin form-control w-20" style="margin-right: 2rem;">
+                       <button class="btn btn-md btn-outline-primary add-to-cart-btn" data-index="{{ produit.id_prod }}" id="add-to-cart-btn"><i class="fa fa-cart-plus"></i></button>
+                    </div>
+                  {% endif %}
+                    
+                  
+                </div>
+            </div>
+        
+    </div>
+    
+</section>
+<script src="{% static 'js/cart.js' %}"></script>
+<footer class="footer bg-light sm-6">
+  <div
+    class="container-fluid d-flex flex-md-row flex-column justify-content-between align-items-md-center gap-1 container-p-x py-3">
+    <div>
+      <a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/"
+        target="_blank" class="footer-text fw-bold">Sneat</a>
+      ©
+    </div>
+    <div>
+      <a href="" class="bx bxl-facebook"></a>
+      <a href="" class="bx bxl-instagram"></a>
+      <a href="" class="bx bxl-paypal"></a>
+      <a href="" class="bx bx-phone"></a>
+      <div class="dropdown dropup footer-link me-3">
+      </div>
+      <a href="{% url 'logout' %}" class="btn btn-sm btn-outline-danger"><i
+          class="bx bx-log-out-circle me-1"></i>Logout</a>
+    </div>
+  </div>
+</footer>
+<script src="{% static 'assets/vendor/libs/jquery/jquery.js' %}"></script>
+  <script src="{% static 'assets/vendor/libs/popper/popper.js' %}"></script>
+  <script src="{% static 'assets/vendor/js/bootstrap.js' %}"></script>
+  <script src="{% static 'assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js' %}"></script>
+  <script src="{% static 'assets/vendor/js/menu.js' %}"></script>
+  <script src="{% static 'assets/js/main.js' %}"></script>
+  <script src="{% static 'assets/js/ui-modals.js' %}"></script>
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+</body>
+
+</html>

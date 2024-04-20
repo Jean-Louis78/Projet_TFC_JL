@@ -1,0 +1,115 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Monserrat', sans-serif;
+}
+body{
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(170, 163, 163);
+}
+.wrapper{
+    background: #ffffff;
+    position: relative;
+    padding: 30px 40px;
+}
+.border-design{
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+}
+.border-design.top{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+.border-design.bottom{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    flex-direction: row-reverse;
+}
+.invoice-header{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+.logo{
+    text-transform: uppercase;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    display: block;
+}
+.logo span{
+    font-weight: 400;
+}
+.title{
+    text-transform: uppercase;
+    font-size: 25px;
+    font-weight: 600;
+    text-align: right;
+}
+.inv-number .inv-date{
+    display: flex;
+    justify-content: space-between;
+}
+.inv-number{
+    padding: 10px 45px 0 0;
+}
+.inv-date{
+    padding: 10px 0 0 45px;
+}
+.inv-number h3, .inv-date h3{
+    font-weight: 700;
+    font-size: 12px;
+}
+.inv-numberh4, .inv-date h4{
+    font-size: 12px;
+    font-weight: 500;
+}
+.billing-detail{
+    margin-top: 15px;
+}
+.billing-detail p:nth-child(1){
+    font-size: 12px;
+    font-weight: 700;
+    width: 150px;
+    border-bottom: 1px solid #000;
+}
+.billing-detail p:nth-child(3),
+.billing-detail p:nth-child(4),
+.billing-detail p:nth-child(5){
+    font-weight: 600;
+}
+table{
+    border-collapse: collapse;
+    font-size: 12px;
+    width: 100%;
+    margin-top: 20px;
+}
+table thead tr td{
+    text-align: center;
+    font-weight: 600;
+    padding: 8px 5px;
+}
+table tbody td{
+    padding: 7px 5px;
+    text-align: center;
+}
+.l-col{
+    text-align: left;
+}
+.r-col{
+    text-align: right;
+}
+table tbody tr:nth-child(odd){
+    background: #f0f0f0;
+}
+table tbody tr:nth-child(even){
+    background: #fcfcfc;
+    border-bottom: 1px solid #b4b4b4;
+    border-top: 1px solid #b4b4b4;
+}

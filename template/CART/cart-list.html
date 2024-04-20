@@ -1,0 +1,173 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+
+    <title>shopping cart checkout - Bootdey.com</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/js/bootstrap.js' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/js/bootstrap.min.js' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/img/favicon/favicon.ico' %}" />
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+    rel="stylesheet" />
+
+  <link rel="stylesheet" href="{% static 'assets/vendor/fonts/boxicons.css' %}" />
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="{% static 'assets/vendor/css/core.css' %}" class="template-customizer-core-css" />
+  <link rel="stylesheet" href="{% static 'assets/vendor/css/theme-default.css' %}"
+    class="template-customizer-theme-css" />
+  <link rel="stylesheet" href="{% static 'assets/css/demo.css' %}" />
+
+  <!-- Vendors CSS -->
+  <link rel="stylesheet" href="{% static 'assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/vendor/libs/apex-charts/apex-charts.css' %}" />
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <title>Ma Boutique</title>
+</head>
+<body>
+      
+    <main class="main mb-5" id="cart-list">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+        <div class="container">
+            <div class="wrapper wrapper-content animated fadeInRight">
+                <div class="row">
+                  <div class="col-md-9 col-sm-7 col-lg-9">
+                    <div class="ibox">
+                      {% if messages %}
+                      {% for msg in messages %}
+                      <div class="alert alert-danger alert-dismissible text-center size-1" role="alert">
+                        {{msg}}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                      {% endfor %}
+                      {% endif %}
+                      <div class="ibox-title">
+                        <span class="pull-right">(<strong>{{ totalcartitems }}</strong>) Articles</span>
+                        <h5>Les Articles Dans Votre Panier</h5>
+                      </div>
+                      <div class="ibox-content">
+                        <div class="table-responsive">
+                          <table class="table shoping-cart-table">
+                            <tbody>
+                              <thead>
+                                <th>Image</th>
+                                <th>Designation</th>
+                                <th>Quantite</th>
+                                <th style="text-align: center;">Prix</th>
+                                <th style="text-align: center;">Actions</th>
+                              </thead>
+                              {% for product_id, item in cart_data.items %}
+                              <tr>
+                                <td class="image product-thumbnail pt-40"><img src="{{ item.image }}" alt=""
+                                    style="max-width: 4rem;"></td>
+                                <td class="desc">
+                                  <h4>
+                                    <h4 class="text-navy mb-10">
+                                      <b>{{item.title}}</b>
+                                    </h4>
+                                  </h4>
+                                </td>
+                                <td width="65">
+                                  <input type="number" class="form-control product-qty-{{ product_id }}" value="{{ item.qty }}"
+                                    style="margin-top: 7px;">
+                                </td>
+                                <td>
+                                  <div>
+                                    <h4 style="margin-top: 14px; text-align: center;">
+                                      {{ item.price }} $
+                                    </h4>
+                                  </div>
+                                </td>
+                                <td>
+                                  <div>
+                                    <h4 style="text-align: center;">
+                                      <button class="btn-info rounded fa fa-refresh update-product" data-product="{{ product_id }}" style="margin: 5px;"></button>
+                                      <button class="btn-danger rounded fa fa-trash delete-product" data-product="{{ product_id }}" style="margin: 5px;"></button>
+                                      <form action="/vente-ajout/" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="produit_vente" value="{{ product_id }}">
+                                        <input type="hidden" name="quantite_vente" value="{{ item.qty }}">
+                                        <div class="btn-group text-center">
+                                        <button class="btn btn-primary" type="submit" style="width: 4rem;"><i class="fa fa-check-circle"></i></button>
+                                        </div>
+                                      </form>
+                                    </h4>
+                                  </div>
+                                </td>
+                              </tr>
+                              {% endfor %}
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div class="ibox-content text-center">
+                        <a href="{% url 'index' %}" class="btn btn-info" style="width: 15rem;">
+                          <i class="fa fa-arrow-left"></i> Continuer
+                          les achats</a>
+                          {% if totalcartitems %}
+                          <a href="{% url 'checkout_payment' %}" class="btn btn-success" style="width: 15rem;"><i class="fa fa-shopping-cart"></i> Checkout</a>
+                          {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                    <div class="col-md-3 col-sm-5 col-lg-3" style="text-align: center; font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
+                        <div class="ibox">
+                          <div class="ibox-title">
+                            <h4><b>Dans le Pannier</b></h4>
+                          </div>
+                          <div class="ibox-content">
+                            <span>
+                              Totale Générale
+                            </span>
+                            <h2 class="font-bold">
+                              {{ total_amount|floatformat:2 }}$
+                            </h2>
+                          </div>
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script src="{% static 'js/cart.js' %}"></script>
+    <footer class="footer bg-light sm-6">
+        <div
+          class="container-fluid d-flex flex-md-row flex-column justify-content-between align-items-md-center gap-1 container-p-x py-3">
+          <div>
+            <a href="https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/"
+              target="_blank" class="footer-text fw-bold">Sneat</a>
+            ©
+          </div>
+          <div>
+            <a href="" class="bx bxl-facebook"></a>
+            <a href="" class="bx bxl-instagram"></a>
+            <a href="" class="bx bxl-paypal"></a>
+            <a href="" class="bx bx-phone"></a>
+            <div class="dropdown dropup footer-link me-3">
+            </div>
+            <a href="{% url 'logout' %}" class="btn btn-sm btn-outline-danger"><i
+                class="bx bx-log-out-circle me-1"></i>Logout</a>
+          </div>
+        </div>
+      </footer>
+</body>
+
+</html>

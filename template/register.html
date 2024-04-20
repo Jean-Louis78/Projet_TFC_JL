@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width-device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Ma page</title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="https://cdnjs.js.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all/all.min.css"/>
+    </head>
+
+    <body>
+       <div class="wrapper">
+            <section class="form signup">
+                    <header>Register</header>
+                    <form method="post">
+                        {% csrf_token %}
+                        
+                        {% if error_message %}
+                            <div class="error-txt">{{ error_message }}</div>
+                        {% endif %}
+                            
+                        
+                        <div class="name-details">
+                            <div class="field input">
+                                <label>Nom </label>
+                                <input type="text" placeholder="Nom" name="nom" required>
+                            </div>
+                            <div class="field input">
+                                <label>Prenom </label>
+                                <input type="text" placeholder="Prenom" name="prenom" required>
+                            </div>
+                        </div>
+                            <div class="field input">
+                                <label>Adresse </label>
+                                <input type="text" placeholder="Entrez votre Adresse" name="adresse" required>
+                            </div>
+                            <div class="field input">
+                                <label>Email </label>
+                                <input type="text" placeholder="Entrez votre Email" name="email" required>
+                            </div>
+                            <div class="field input">
+                                <label>Telephone </label>
+                                <input type="text" placeholder="+243-------------" name="telephone" required>
+                            </div>
+                            <div class="field input">
+                                <label>Mot de Passe </label>
+                                <input type="password" placeholder="Entrez votre mot de passe" name="password" required>
+                            </div>
+                            <div class="field image">
+                                <label>Select Image </label>
+                                <input type="file" name="photo">
+                            </div>
+                            <div class="field button">
+                                <input type="submit" value="Enregistrer">
+                            </div>
+                            <div class="field button">Déjà inscrit? 
+                                <a href="{% url 'login' %}" class="btn btn-primary disabled">Connectez-vous</a>
+                                
+                            </div>
+                            </div>
+                            
+                    </form>
+                    
+            </section>
+       </div>
+    </body>
+</html>

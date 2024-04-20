@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/js/bootstrap.js' %}">
+    <link rel="stylesheet" href="{% static 'bootstrap/js/bootstrap.min.js' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <div class="wrapper col-12">
+    <section class="form signup">
+      <div class="d-flex">
+      <h2>Inscription</h2>
+      </div>
+  <form method="post" enctype="multipart/form-data" class="align-items-center">
+    {% csrf_token %}
+    <div class="row">
+      <div class="mb-3 col-12">
+        
+        {% if messages %}
+          {% for msg in messages %}
+            {{msg}}
+          {% endfor %}
+        {% endif %}
+          
+      </div>
+    <div class="mb-3 col-6">
+      <label class="form-label" for="basic-icon-default-company">Prénom</label>
+      <div class="input-group input-group-merge">
+        <span id="basic-icon-default-company2" class="input-group-text">
+          <i class="bxs-user"></i></span>
+            {{ form.last_name }}
+      </div>
+    </div>
+    <div class="mb-3 col-6">
+      <label class="form-label" for="basic-icon-default-company">Nom</label>
+      <div class="input-group input-group-merge">
+        <span id="basic-icon-default-company2" class="input-group-text">
+          <i class="fa-user"></i></span>
+            {{ form.first_name }}
+      </div>
+    </div>
+    <div class="mb-3 col-6">
+      <label class="form-label" for="basic-icon-default-company">Nom d'utilisateur</label>
+      <div class="input-group input-group-merge">
+        <span id="basic-icon-default-company2" class="input-group-text">
+          <i class="fa-user"></i></span>
+            {{ form.username }}
+      </div>
+    </div>
+    <div class="mb-3 col-6">
+      <label class="form-label" for="basic-icon-default-company">Email</label>
+      <div class="input-group input-group-merge">
+        <span id="basic-icon-default-company2" class="input-group-text">
+          <i class="fa-user"></i></span>
+            {{ form.email }}
+      </div>
+    </div>
+    <div class="mb-3 col-12">
+      <label class="form-label" for="basic-icon-default-company">Adresse</label>
+      <div class="input-group input-group-merge">
+        <span id="basic-icon-default-company2" class="input-group-text">
+          <i class="fa-user"></i></span>
+            {{ form.adresse }}
+      </div>
+    </div>
+    <div class="mb-3 col-6">
+      <label class="form-label" for="basic-icon-default-company">Mot de passe</label>
+      <div class="input-group input-group-merge">
+        <span id="basic-icon-default-company2" class="input-group-text">
+          <i class="fa-user"></i></span>
+            {{ form.password1 }}
+      </div>
+    </div>
+    <div class="mb-3 col-6">
+      <label class="form-label" for="basic-icon-default-company">Confirmer le Mot de passe</label>
+      <div class="input-group input-group-merge">
+        <span id="basic-icon-default-company2" class="input-group-text">
+          <i class="fa-user"></i></span>
+            {{ form.password2 }}
+      </div>
+    </div>
+    <div class="mb-3 col-12">
+      <label class="form-label" for="basic-icon-default-company">Photo de Profil</label>
+      <div class="input-group input-group-merge">
+        <span id="basic-icon-default-company2" class="input-group-text">
+          <i class="fa-user"></i></span>
+            {{ form.photo }}
+      </div>
+    </div>
+  </div>
+  <div class="field button">
+    <button type="submit" class="btn btn-primary text-center">S'inscrire</button>
+  </div>
+    
+    <div class="d-flex">
+      <label class="">Déjà inscrit?</label> 
+      <a href="{% url 'login' %}" class="btn btn-light form-label">Connectez-vous</a>
+  </div>
+  </form>
+  </section>
+  </div>
+</body>
+</html>

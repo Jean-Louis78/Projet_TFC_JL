@@ -1,0 +1,214 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Monomaniac+One&family=Nunito:wght@500;700;800&display=swap'); */
+
+:root{
+    --green:#27ae60;
+    --black:#192a56;
+    --light-color:#666;
+    --box-shadow: 0 .5rem 1.5rem rgba(0,0,0,.1);
+}
+
+*{
+    font-family: 'Nunito';
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+    
+    outline: none; border: none;
+    text-transform: capitalize;
+    transition: all .2s linear;
+}
+
+html{
+    font-size: 65.2%;
+    overflow-x: hidden;
+    scroll-padding-top: 5.5rem;
+    scroll-behavior: smooth;
+}
+
+section{
+    padding: 6rem 9%;
+    /* margin-top: 4rem; */
+}
+
+.btn{
+    margin-top: 1rem;
+    display: inline-block;
+    font-size: 1.7rem;
+    color: #fff;
+    background: var(--black);
+    border-radius: .5rem;
+    cursor: pointer;
+    padding: .8rem 3rem;
+    text-decoration: none;
+}
+
+.btn:hover{
+    color: #fff;
+    background: var(--green);
+    letter-spacing: .1rem;
+}
+
+section:nth-child(even){
+    background: #eee;
+}
+
+
+.home .home-slider .slide{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 2rem;
+    padding-top: 9rem;
+}
+
+.home .home-slider .slide .content{
+    flex: 1 1 45rem;
+}
+
+
+
+.home .home-slider .slide .image{
+    flex: 1 1 45rem;
+}
+
+.home .home-slider .slide .image img{
+    width: 70%;
+    object-fit: contain;
+}
+
+.home .home-slider .slide .content span{
+    color: var(--green);
+    font-size: 2rem;
+    justify-content: center;
+}
+
+.home .home-slider .slide .content h3{
+    color: var(--green);
+    font-size: 7rem;
+}
+
+.home .home-slider .slide .content p{
+    color: var(--light-color);
+    font-size: 2.2rem;
+    padding: .5rem;
+    line-height: 1.5; 
+}
+
+.swiper-pagination-bullet-active{
+    background: var(--green);
+}
+
+.menu h3, h1{
+    text-align: center;
+    text-transform: capitalize;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+.container .article{
+    justify-content: space-between;
+    border: 4px solid gray;
+    border-radius: 10px;
+    /* margin: 2rem; */
+    /* padding: 0.5rem; */
+}
+
+.container img{
+    width: 100%;
+    height: 100%;
+    max-height: 400px;
+    align-items: center;
+    margin-bottom: 1rem;
+    object-fit: contain;
+}
+
+.container .article p{
+    font-size: 1.5rem;
+}
+
+.container .article .stars{
+    text-align: center;
+    font-size: 2rem;
+    color: var(--green);
+}
+
+/* .container .article .description .btnprc{
+    justify-content: space-between;
+    display: flex;
+} */
+
+.container .article .description .btnprc .price{
+    padding-top: 2rem;
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+
+
+@media (max-width:991px) {
+    html{
+        font-size: 55%;
+    }
+
+    header{
+        padding: 1rem 2rem;
+    }
+
+    section{
+        padding: 2rem;
+    }
+    .home .home-slider .slide .content{
+        margin-top: 4rem;
+    }
+    .home .home-slider .slide .image img{
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    header .icons #ma-bars{
+        display: inline-block;
+    }
+
+    header .navbar{
+        position: fixed;
+        top: 8%; left: 0; right: 0;
+        width: 100%;
+        background: #fff;
+        border-top: .1rem solid rgba(0,0,0,.2);
+        border-bottom: .1rem solid rgba(0,0,0,.2);
+        padding: 1rem;
+        clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    }
+
+    header .navbar.active{
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    }    
+
+    header .navbar a{
+        display: block;
+        width: 100%;
+        padding: 1.5rem;
+        margin: 1rem;
+        font-size: 2rem;
+        background: #eee;
+    }
+
+    #search-form #search-box{
+        width: 80%;
+        margin: 0 1rem;
+    }
+
+    .home .home-slider .slide .content h3{
+        font-size: 5rem;
+    }
+
+    .home .home-slider .slide{
+        padding-top: 9rem;
+    }
+}
+
+@media (max-width:991px) {
+    html{
+        font-size: 50%;
+    }
+}

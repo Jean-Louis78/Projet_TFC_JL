@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link rel="stylesheet" href="{% static 'css/invoice.css' %}">
+</head>
+<body>
+    <div class="wrapper" id="export_to_pdf">
+        
+        <div class="invoice-header">
+            <div class="logo">
+                <img src="{% static 'assets/img/elements/CM_Logo.jpg' %}" alt="" style="max-width: 7rem; border-radius: 50px;">
+            </div>
+            <div class="inv-number">
+                <h3 style="font-size: 2rem;">Reçu de Paiement</h3>
+            </div>
+        </div>
+
+        <div class="billing-detail">
+            <p><span>Contact: </span>+243973885864</p>
+            <p><span>Email: </span>jeanlouisdouglas93@gmail.com</p>
+            <p><span>Adress: </span>Com.Goma/Q.Kyeshero/Av.Mulu N°78</p>
+        </div>
+        <div>
+            <p><span>Client: </span><strong>{{ user.get_full_name }}</strong></p>
+        </div>
+        <div class="mb-4" style="margin-bottom: 1rem;">
+            <table class="table">
+                <thead>
+                    <th class="text-center">Produit</th>
+                    <th class="text-center">Quantité</th>
+                    <th class="text-center">Prix Unitaire</th>
+                </thead>
+                <tbody>
+                    {% for product_id, item in cart_data.items %}
+                    <tr>
+                        <td>{{item.title}}</td>
+                        <td>{{item.qty}}</td>
+                        <td>{{ item.price }} $</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="total-section" style="margin-left: 80%;">
+                <div class="total">
+                    <p>Grand Total: </p>
+                    <p>{{ total_amount|floatformat:2 }}$</p>
+                </div>
+            </div>
+        </div>
+        
+        
+        <div class="payment-terms">
+            <div class="message text-center">
+                <p>--Merci d'avoir choisi-- <h4><b>Classic MARKET</b></h4></p>
+            </div>
+        </div>
+        <div data-html2canvas-ignore = "true" class="text-center">
+            <a href="{% url 'restart-cart' %}" class="btn btn-success"><span class="fa fa-home-circle"></span>Accueil</a>
+        <button class="btn btn-primary" id="exportButton">Télécharger</button>
+        </div>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/js-html2pdf@1.1.4/lib/html2pdf.min.js"></script>
+    <script type="text/javascript">
+      function exportHTMLtoPDF() {
+        var element = document.getElementById('export_to_pdf');
+        var options = {
+          filename: 'Commandes-pdf-file.pdf',
+          html2canvas: {scale: 2},
+          jsPDF: {
+            unit: 'mm',
+            format: 'a5',
+            orientation : 'portrait'
+          }
+        };
+        var exporter = new html2pdf(element, options);
+        exporter.getPdf(true).then((pdf) => {
+          console.log('pdf file downloaded');
+        });
+      }
+
+      document.getElementById('exportButton').addEventListener('click', exportHTMLtoPDF);
+    </script>
+</body>
+</html>
